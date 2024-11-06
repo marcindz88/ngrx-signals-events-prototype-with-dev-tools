@@ -20,6 +20,7 @@ export const AlbumSearchStore = signalStore(
     return { albums, albumsCount, showProgress, showSpinner };
   }),
   withReducer(
+    'albumSearch',
     when(albumSearchPageEvents.queryChanged, ({ query }) => ({ query })),
     when(albumSearchPageEvents.orderChanged, ({ order }) => ({ order })),
   ),

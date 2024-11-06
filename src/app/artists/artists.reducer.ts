@@ -14,6 +14,7 @@ export function withArtistsReducer() {
   return signalStoreFeature(
     { state: type<EntityState<Artist> & RequestStatusState>() },
     withReducer(
+      'artists',
       when(artistsPageEvents.opened, artistsPageEvents.refreshed, setPending),
       when(artistsApiEvents.loadedSuccess, ({ artists }) => [
         setAllEntities(artists),

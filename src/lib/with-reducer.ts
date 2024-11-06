@@ -13,8 +13,10 @@ import {
 import { CaseReducerResult } from './case-reducer';
 import { EventCreator, EventWithPropsCreator } from './event';
 import { ReducerEvents } from './events';
+import { SignalReducerManager } from './dev-tools';
 
 export function withReducer<State extends object>(
+  name: string,
   ...caseReducers: CaseReducerResult<
     State,
     Array<EventCreator | EventWithPropsCreator>
@@ -26,7 +28,8 @@ export function withReducer<State extends object>(
   return signalStoreFeature(
     { state: type<State>() },
     withHooks({
-      onInit(store, events = inject(ReducerEvents)) {
+      onInit(store, events = inject(ReducerEvents), signalReducerManager = inject(SignalReducerManager)) {
+        signalReducerManager.registerStore(name, store);
         for (const caseReducerResult of caseReducers) {
           events
             .on(...caseReducerResult.events)

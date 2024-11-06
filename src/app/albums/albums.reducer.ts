@@ -16,6 +16,7 @@ export function withAlbumsReducer() {
   return signalStoreFeature(
     { state: type<EntityState<Album> & RequestStatusState>() },
     withReducer(
+      'albums',
       when(albumSearchPageEvents.opened, setPending),
       when(albumOverviewPageEvents.idChanged, ({ albumId }, { entityMap }) =>
         entityMap[albumId] ? {} : setPending(),

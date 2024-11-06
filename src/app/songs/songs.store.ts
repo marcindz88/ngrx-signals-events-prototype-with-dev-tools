@@ -22,6 +22,7 @@ export const SongsStore = signalStore(
   withEntities<Song>(),
   withRequestStatus(),
   withReducer(
+    'songs',
     when(
       albumOverviewPageEvents.idChanged,
       ({ albumId }, { songsByAlbumMap }) =>
